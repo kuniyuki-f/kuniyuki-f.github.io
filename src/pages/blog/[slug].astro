@@ -1,0 +1,314 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+const formattedDate = post.data.date.toLocaleDateString('ja-JP', {
+  year: 'numeric',
+  month: '2-digit',
+  day: '2-digit',
+});
+
+const pageUrl = Astro.url.href;
+const pageTitle = post.data.title;
+---
+
+<Layout title={post.data.title} description={post.data.excerpt}>
+
+  <main class="single__main">
+
+    <!-- 記事ヘッダー（アイキャッチ背景） -->
+    <div
+      class="single__header"
+      style={`background-image: url('${post.data.thumbnail || '/images/blog-default.jpg'}')`}
+    >
+      <h1 class="single__title">{post.data.title}</h1>
+      <div class="single__meta">
+        {post.data.category && (
+          <a href={`/blog/`} class="single__cat">{post.data.category}</a>
+        )}
+        <time class="single__date" datetime={post.data.date.toISOString()}>
+          公開日：{formattedDate}
+        </time>
+      </div>
+    </div>
+
+    <!-- 記事本文 -->
+    <div class="single__content">
+      <Content />
+
+      <!-- SNS共有ボタン -->
+      <ul class="sns-list">
+        <span>この記事をシェアする</span>
+        <li>
+          <a
+            href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(pageUrl)}&text=${encodeURIComponent(pageTitle)}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="sns-btn sns-btn--twitter"
+          >X（Twitter）</a>
+        </li>
+        <li>
+          <a
+            href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(pageUrl)}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="sns-btn sns-btn--facebook"
+          >Facebook</a>
+        </li>
+        <li>
+          <a
+            href={`https://line.me/R/msg/text/?${encodeURIComponent(pageTitle)}%0A${encodeURIComponent(pageUrl)}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="sns-btn sns-btn--line"
+          >LINE</a>
+        </li>
+        <li>
+          <a
+            href={`https://getpocket.com/edit?url=${encodeURIComponent(pageUrl)}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="sns-btn sns-btn--pocket"
+          >Pocket</a>
+        </li>
+        <li>
+          <a
+            href={`https://b.hatena.ne.jp/entry/${encodeURIComponent(pageUrl)}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="sns-btn sns-btn--hatena"
+          >はてブ</a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- パンくずリスト -->
+    <div class="single__breadcrumb-wrapper">
+      <nav class="breadcrumb" aria-label="パンくずリスト">
+        <a href="/">Home</a>
+        <span class="breadcrumb__sep">></span>
+        <a href="/blog/">Blog</a>
+        <span class="breadcrumb__sep">></span>
+        <span>{post.data.title}</span>
+      </nav>
+    </div>
+
+  </main>
+
+</Layout>
+
+<style>
+  .single__main {
+    background-color: #f4f3ec;
+  }
+
+  /* 記事ヘッダー（アイキャッチ画像つき） */
+  .single__header {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 20rem; /* 320px */
+    color: #ccc;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.8);
+    background-repeat: no-repeat;
+    background-position: 50%;
+    background-size: cover;
+    background-blend-mode: darken;
+  }
+
+  .single__title {
+    padding: 0 1em;
+    font-size: 2.25rem; /* 36px */
+    font-weight: bold;
+    line-height: 1.4;
+  }
+
+  .single__meta {
+    padding: 1.375rem; /* 22px */
+    font-size: 0.75rem; /* 12px */
+  }
+
+  .single__cat {
+    display: inline-block;
+    padding: 0 1em;
+    color: #ccc;
+    text-decoration: underline;
+  }
+
+  .single__date {
+    display: inline-block;
+    padding-top: 1em;
+    color: #ccc;
+  }
+
+  /* 記事本文 */
+  .single__content {
+    max-width: 58.75rem; /* 940px */
+    padding: 2.0625rem 1.25rem; /* 33px 20px */
+    margin: auto;
+    color: #333;
+    font-size: 1rem; /* 16px */
+    line-height: 1.8;
+  }
+
+  /* Markdown本文スタイル */
+  .single__content :global(h2) {
+    padding: 3.4375rem 0 0.5em 0.5em; /* 55px */
+    font-size: 1.5rem; /* 24px */
+    font-weight: bold;
+    border-bottom: 1px solid #ccc;
+  }
+
+  .single__content :global(h3) {
+    padding-top: 2.0625rem; /* 33px */
+    padding-left: 0.5em;
+    font-size: 1.25rem; /* 20px */
+    font-weight: bold;
+  }
+
+  .single__content :global(p) {
+    padding: 1em;
+  }
+
+  .single__content :global(a) {
+    font-weight: bold;
+    color: #16a34a;
+    text-decoration: underline;
+  }
+
+  .single__content :global(ul),
+  .single__content :global(ol) {
+    padding: 0.5em 1em 0.5em 3em;
+  }
+
+  .single__content :global(li) {
+    margin-bottom: 0.5em;
+  }
+
+  .single__content :global(pre) {
+    background-color: #1e1e1e;
+    color: #f4f3ec;
+    padding: 1.25rem; /* 20px */
+    border-radius: 4px;
+    overflow-x: auto;
+    margin: 1.25rem 0; /* 20px */
+  }
+
+  .single__content :global(code) {
+    background-color: #f0ede6;
+    padding: 0.2rem 0.6rem;
+    border-radius: 3px;
+    font-size: 0.9em;
+    font-family: monospace;
+  }
+
+  .single__content :global(pre code) {
+    background: none;
+    padding: 0;
+    color: inherit;
+  }
+
+  .single__content :global(blockquote) {
+    border-left: 4px solid #16a34a;
+    padding-left: 1rem; /* 16px */
+    margin: 1em;
+    color: #555;
+    font-style: italic;
+  }
+
+  /* SNS共有ボタン */
+  .sns-list {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    padding-top: 6.875rem; /* 110px */
+    list-style: none;
+    margin: 0;
+    padding-left: 0;
+    gap: 0.5rem; /* 8px */
+  }
+
+  .sns-list span {
+    width: 100%;
+    padding-left: 1em;
+    font-size: 0.875rem; /* 14px */
+    color: #555;
+  }
+
+  .sns-list li {
+    padding-top: 1em;
+    padding-left: 1em;
+  }
+
+  .sns-btn {
+    display: inline-block;
+    padding: 0.5rem 1rem; /* 8px 16px */
+    border-radius: 4px;
+    font-size: 0.875rem; /* 14px */
+    font-weight: 500;
+    text-decoration: none;
+    color: #fff;
+    transition: opacity 0.2s;
+  }
+
+  .sns-btn:hover {
+    opacity: 0.85;
+  }
+
+  .sns-btn--twitter  { background-color: #1a1a1a; }
+  .sns-btn--facebook { background-color: #1877f2; }
+  .sns-btn--line     { background-color: #06c755; }
+  .sns-btn--pocket   { background-color: #ef4056; }
+  .sns-btn--hatena   { background-color: #00a4de; }
+
+  /* パンくずリストラッパー */
+  .single__breadcrumb-wrapper {
+    background-color: #f4f3ec;
+  }
+
+  .single__breadcrumb-wrapper .breadcrumb {
+    max-width: 56.25rem; /* 900px */
+    margin: auto;
+  }
+
+  /* レスポンシブ */
+  @media screen and (max-width: 767px) {
+    .single__title {
+      font-size: 1.25rem; /* 20px */
+    }
+
+    .single__content {
+      max-width: 23.4375rem; /* 375px */
+      padding: 1.375rem 1rem; /* 22px 16px */
+    }
+
+    .single__content :global(h2) {
+      padding: 2.5rem 0 0.5em 0.5em;
+      font-size: 1rem; /* 16px */
+    }
+
+    .single__content :global(h3) {
+      padding-top: 1.5rem;
+      font-size: 1rem; /* 16px */
+    }
+
+    .single__content :global(p) {
+      padding: 0.8em;
+    }
+  }
+</style>

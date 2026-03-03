@@ -1,0 +1,25 @@
+---
+---
+
+<a id="scroll-to-top" href="#" aria-label="ページトップへ戻る">
+  <span class="material-icons-outlined">expand_less</span>
+</a>
+
+<script>
+  const scrollBtn = document.getElementById('scroll-to-top');
+
+  // スクロール量が200px以上になったら fadeIn クラスを付与して表示
+  window.addEventListener('scroll', () => {
+    if (window.scrollY >= 200) {
+      scrollBtn?.classList.add('fadeIn');
+    } else {
+      scrollBtn?.classList.remove('fadeIn');
+    }
+  });
+
+  // クリックでページトップへスムーススクロール
+  scrollBtn?.addEventListener('click', (e) => {
+    e.preventDefault();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+</script>

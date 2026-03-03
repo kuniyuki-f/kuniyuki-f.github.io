@@ -1,0 +1,45 @@
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import ScrollToTop from '../components/ScrollToTop.astro';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = 'WEB制作 Swing - くにゆきのポートフォリオサイト' } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title} | WEB制作 Swing</title>
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/png" href="/images/favicon.png" />
+
+    <!-- Google Material Icons（Filled と Outlined 両方読み込む） -->
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Outlined"
+      rel="stylesheet"
+    />
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-HDQJNK97HN"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('js', new Date());
+      gtag('config', 'G-HDQJNK97HN');
+    </script>
+  </head>
+  <body>
+    <Header />
+    <slot />
+    <Footer />
+    <ScrollToTop />
+  </body>
+</html>

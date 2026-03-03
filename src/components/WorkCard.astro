@@ -1,0 +1,80 @@
+---
+interface Props {
+  title: string;
+  thumbnail: string;
+  link: string;
+  description?: string;
+}
+
+const { title, thumbnail, link, description } = Astro.props;
+---
+
+<article class="front-page-works__item">
+  <a href={link} target="_blank" rel="noopener noreferrer" class="front-page-works__link card-hover">
+    <div class="front-page-works__img thumb-zoom">
+      <img src={thumbnail} alt={title} loading="lazy" class="front-page-works__thumb" />
+    </div>
+    <h3 class="front-page-works__title">{title}</h3>
+    {description && <p class="front-page-works__desc">{description}</p>}
+  </a>
+</article>
+
+<style>
+  .front-page-works__item {
+    text-align: center;
+  }
+
+  /* ホバーエフェクト：WordPressテーマ準拠
+     right → left へ白背景がスライド展開 */
+  .front-page-works__link {
+    position: relative;
+    display: block;
+    padding: 1.25rem; /* 20px */
+    text-decoration: none;
+  }
+
+  /* 画像コンテナ（16:9比率） */
+  .front-page-works__img {
+    position: relative;
+    width: 18.75rem; /* 300px */
+    height: 10.546875rem; /* 168.75px = 300 * 9/16 */
+    margin: auto;
+    overflow: hidden;
+    border-radius: 5px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+  }
+
+  .front-page-works__thumb {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s;
+  }
+
+  .front-page-works__link:hover .front-page-works__thumb {
+    transform: scale(1.1);
+  }
+
+  /* タイトル */
+  .front-page-works__title {
+    position: relative;
+    padding: 0.6875rem 0; /* 11px */
+    font-size: 1.25rem; /* 20px */
+    font-weight: bold;
+    color: #16a34a;
+    text-decoration: underline;
+    z-index: 1;
+  }
+
+  /* 説明文 */
+  .front-page-works__desc {
+    position: relative;
+    padding-top: 0.6875rem; /* 11px */
+    font-size: 0.875rem; /* 14px */
+    color: #555;
+    max-width: 18.75rem; /* 300px */
+    margin: auto;
+    text-align: left;
+    z-index: 1;
+  }
+</style>

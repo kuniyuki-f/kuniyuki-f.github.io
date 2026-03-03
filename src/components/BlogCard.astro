@@ -1,0 +1,128 @@
+---
+interface Props {
+  title: string;
+  slug: string;
+  date: Date;
+  category?: string;
+  thumbnail?: string;
+  excerpt?: string;
+}
+
+const { title, slug, date, category, thumbnail, excerpt } = Astro.props;
+
+const formattedDate = date.toLocaleDateString('ja-JP', {
+  year: 'numeric',
+  month: '2-digit',
+  day: '2-digit',
+});
+---
+
+<article class="front-page-posts__item">
+  <a href={`/blog/${slug}/`} class="front-page-posts__link card-hover">
+    <div class="front-page-posts__img thumb-zoom">
+      <img
+        src={thumbnail || '/images/blog-default.jpg'}
+        alt={title}
+        loading="lazy"
+        class="front-page-posts__thumb"
+      />
+    </div>
+    <h3 class="front-page-posts__title">{title}</h3>
+    <div class="front-page-posts__meta">
+      <time class="front-page-posts__date" datetime={date.toISOString()}>
+        {formattedDate}
+      </time>
+      {category && (
+        <span class="front-page-posts__cat">{category}</span>
+      )}
+    </div>
+    {excerpt && (
+      <p class="front-page-posts__excerpt">{excerpt}</p>
+    )}
+  </a>
+</article>
+
+<style>
+  .front-page-posts__item {
+    max-width: 21.25rem; /* 340px */
+    text-align: center;
+  }
+
+  /* ホバーエフェクト：WordPressテーマ準拠 */
+  .front-page-posts__link {
+    position: relative;
+    display: block;
+    padding: 1.25rem; /* 20px */
+    text-decoration: none;
+  }
+
+  /* 画像コンテナ（16:9比率） */
+  .front-page-posts__img {
+    position: relative;
+    width: 18.75rem; /* 300px */
+    height: 10.546875rem; /* 168.75px */
+    margin: auto;
+    overflow: hidden;
+    border-radius: 5px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+  }
+
+  .front-page-posts__thumb {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s;
+  }
+
+  .front-page-posts__link:hover .front-page-posts__thumb {
+    transform: scale(1.1);
+  }
+
+  /* タイトル */
+  .front-page-posts__title {
+    position: relative;
+    padding: 0.6875rem 0; /* 11px */
+    font-size: 1.25rem; /* 20px */
+    font-weight: bold;
+    color: #16a34a;
+    text-decoration: underline;
+    z-index: 1;
+  }
+
+  /* メタ情報（日付・カテゴリ） */
+  .front-page-posts__meta {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 18.75rem; /* 300px */
+    margin: auto;
+    font-size: 0.8125rem; /* 13px */
+    z-index: 1;
+  }
+
+  .front-page-posts__date {
+    color: #888;
+  }
+
+  .front-page-posts__cat {
+    font-size: 0.75rem; /* 12px */
+    color: #f4f3ec;
+    background-color: #16a34a;
+    padding: 0.2rem 0.8rem;
+    border-radius: 4px;
+  }
+
+  /* 抜粋 */
+  .front-page-posts__excerpt {
+    position: relative;
+    max-width: 18.75rem; /* 300px */
+    margin: auto;
+    padding: 1em 0;
+    font-size: 0.875rem; /* 14px */
+    color: #555;
+    text-align: left;
+    z-index: 1;
+  }
+</style>

@@ -1,0 +1,163 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const allWorks = await getCollection('works');
+const works = allWorks.sort((a, b) => (a.data.order ?? 99) - (b.data.order ?? 99));
+---
+
+<Layout title="活動実績" description="WEB制作 Swing の活動実績一覧です。">
+
+  <main class="page__main works-page">
+
+    <!-- ページタイトル -->
+    <div class="works-page__content">
+      <h2 class="works-page__title">活動実績</h2>
+    </div>
+
+    <!-- 実績カード一覧（縦1列） -->
+    <div class="entry-items">
+      {works.map((work) => (
+        <article class="works-article">
+          <div class="works-article__inner">
+            <a
+              href={work.data.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="card-hover"
+            >
+              <div class="works-article__img thumb-zoom">
+                <img
+                  src={work.data.thumbnail}
+                  alt={work.data.title}
+                  loading="lazy"
+                  class="works-article__thumb"
+                />
+              </div>
+              <h3 class="works-article__title">{work.data.title}</h3>
+              {work.data.description && (
+                <p class="works-article__description">{work.data.description}</p>
+              )}
+            </a>
+          </div>
+        </article>
+      ))}
+    </div>
+
+    <!-- パンくずリスト -->
+    <nav class="breadcrumb works-breadcrumb" aria-label="パンくずリスト">
+      <a href="/">Home</a>
+      <span class="breadcrumb__sep">></span>
+      <span>Works</span>
+    </nav>
+
+  </main>
+
+</Layout>
+
+<style>
+  .works-page {
+    background-color: #f4f3ec;
+  }
+
+  /* ページタイトル */
+  .works-page__content {
+    background-color: #f4f3ec;
+  }
+
+  .works-page__title {
+    padding: 3.4375rem 0; /* 55px */
+    font-size: 2.25rem; /* 36px */
+    font-weight: bold;
+    color: #333;
+    text-align: center;
+  }
+
+  /* 実績カード（縦1列・中央揃え） */
+  .works-article {
+    padding: 3.4375rem 0; /* 55px */
+    background-color: #f4f3ec;
+    border-bottom: 1px solid rgba(89, 72, 59, 0.1);
+  }
+
+  .works-article__inner a {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 40rem; /* 640px */
+    padding: 3.4375rem 1.25rem; /* 55px 20px */
+    margin: auto;
+    text-decoration: none;
+  }
+
+  /* 画像コンテナ（16:9比率・600px幅） */
+  .works-article__img {
+    position: relative;
+    width: 37.5rem; /* 600px */
+    height: 21.09375rem; /* 337.5px = 600 * 9/16 */
+    overflow: hidden;
+    border-radius: 5px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+  }
+
+  .works-article__thumb {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.3s;
+  }
+
+  .works-article__inner a:hover .works-article__thumb {
+    transform: scale(1.1);
+  }
+
+  /* タイトル */
+  .works-article__title {
+    position: relative;
+    padding-top: 1.375rem; /* 22px */
+    font-size: 1.25rem; /* 20px */
+    font-weight: bold;
+    color: #16a34a;
+    text-decoration: underline;
+    z-index: 1;
+  }
+
+  /* 説明文 */
+  .works-article__description {
+    position: relative;
+    padding-top: 1.375rem; /* 22px */
+    font-size: 0.9375rem; /* 15px */
+    color: #555;
+    text-align: center;
+    z-index: 1;
+  }
+
+  /* パンくずリスト */
+  .works-breadcrumb {
+    max-width: 56.25rem; /* 900px */
+    margin: auto;
+    padding: 1.25rem; /* 20px */
+  }
+
+  /* レスポンシブ */
+  @media screen and (max-width: 767px) {
+    .works-page__title {
+      padding: 2.0625rem 0; /* 33px */
+    }
+
+    .works-article {
+      padding: 2.0625rem 0; /* 33px */
+    }
+
+    .works-article__inner a {
+      max-width: 20rem; /* 320px */
+      padding: 2.0625rem 1.25rem; /* 33px 20px */
+    }
+
+    .works-article__img {
+      width: 18.75rem; /* 300px */
+      height: 10.546875rem; /* 168.75px */
+    }
+  }
+</style>

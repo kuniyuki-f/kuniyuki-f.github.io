@@ -1,0 +1,209 @@
+/* Google Fonts: Noto Sans JP */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ベーススタイル */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Noto Sans JP', 'Hiragino Kaku Gothic ProN', 'ヒラギノ角ゴ ProN W3',
+    'メイリオ', 'Meiryo', 'ＭＳ ゴシック', sans-serif;
+  font-size: 1rem; /* 16px */
+  color: #333;
+  letter-spacing: 0.1em;
+}
+
+/* 固定背景画像（office.jpg）
+   WordPressテーマに合わせて background-blend-mode: darken を使用 */
+body::before {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  display: block;
+  width: 100%;
+  height: 100vh;
+  content: "";
+  background: url('/images/office.jpg') no-repeat;
+  background-color: rgba(0, 0, 0, 0.3);
+  background-position: center;
+  background-size: cover;
+  background-blend-mode: darken;
+}
+
+/* 見出し・本文・リンク共通 */
+h1, h2, h3, p, a, i, span, td, figcaption {
+  line-height: 1.5em;
+  letter-spacing: 0.1em;
+}
+
+/* リンクの基本スタイル */
+a {
+  color: #16a34a;
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+
+a:hover {
+  opacity: 0.8;
+}
+
+/* コンテナ */
+.container {
+  max-width: 80rem; /* 1280px */
+  margin: 0 auto;
+  padding: 0 1.25rem; /* 20px */
+}
+
+/* ページ共通 main */
+.page__main {
+  background-color: #f4f3ec;
+}
+
+/* ページヘッダー（各ページのタイトル部分） */
+.page__header {
+  padding: 3.4375rem 0; /* 55px */
+  text-align: center;
+  background-color: #f4f3ec;
+}
+
+.page__header-title {
+  font-size: 2.25rem; /* 36px */
+  font-weight: bold;
+  color: #333;
+  text-align: center;
+}
+
+.page__header-subtitle {
+  padding-top: 1em;
+  font-size: 1.25rem; /* 20px */
+  color: #333;
+}
+
+/* パンくずリスト */
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  padding: 1em;
+  color: gray;
+  font-size: 0.875rem; /* 14px */
+}
+
+.breadcrumb a {
+  color: gray;
+  opacity: 0.8;
+}
+
+.breadcrumb a:hover {
+  opacity: 1;
+}
+
+/* パンくずの区切り記号 */
+.breadcrumb__sep {
+  margin: 0 0.3em;
+}
+
+/* カードホバーエフェクト
+   WordPressテーマ準拠：right → left へスライド展開 */
+.card-hover {
+  position: relative;
+}
+
+.card-hover::before {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 0;
+  content: "";
+  background-color: #fffffe; /* lighten(#f4f3ec, 40%) に近い白 */
+  transition: transform 0.3s;
+  transform: scale(0, 1);
+  transform-origin: right top;
+}
+
+.card-hover:hover::before {
+  transform: scale(1, 1);
+  transform-origin: left top;
+}
+
+/* サムネイルズームエフェクト */
+.card-hover:hover .thumb-zoom img {
+  transform: scale(1.1);
+}
+
+.thumb-zoom {
+  overflow: hidden;
+}
+
+.thumb-zoom img {
+  transition: transform 0.3s;
+}
+
+/* ページネーション */
+.navigation {
+  margin: 3.4375rem auto; /* 55px */
+}
+
+.page-numbers {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+
+.page-numbers .page-numbers {
+  padding: 0.2em 0.5em;
+  margin: 0 0.625rem; /* 10px */
+  color: #16a34a;
+  border: 1px solid #16a34a;
+  border-radius: 3px;
+  transition: all 0.2s;
+}
+
+.page-numbers .current {
+  color: #f4f3ec;
+  background-color: #16a34a;
+}
+
+.page-numbers .next,
+.page-numbers .prev {
+  border: none;
+}
+
+/* スクロールトップボタン */
+#scroll-to-top {
+  position: fixed;
+  right: 1.25rem; /* 20px */
+  bottom: 1.25rem; /* 20px */
+  font-size: 3.125rem; /* 50px */
+  color: #f4f3ec;
+  background-color: #59483b;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 100;
+  pointer-events: none;
+  opacity: 0;
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.75rem; /* 60px */
+  height: 3.75rem; /* 60px */
+  text-decoration: none;
+}
+
+#scroll-to-top.fadeIn {
+  pointer-events: auto;
+  opacity: 1;
+}
+
+#scroll-to-top:hover {
+  box-shadow: 0 0 5px #59483b;
+  opacity: 1;
+}

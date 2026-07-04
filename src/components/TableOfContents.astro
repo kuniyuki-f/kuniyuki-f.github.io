@@ -1,0 +1,73 @@
+---
+interface Heading {
+  depth: number;
+  slug: string;
+  text: string;
+}
+
+interface Props {
+  headings: Heading[];
+}
+
+const { headings } = Astro.props;
+
+// h2とh3のみ表示
+const tocHeadings = headings.filter((h) => h.depth === 2 || h.depth === 3);
+---
+
+{tocHeadings.length > 0 && (
+  <nav class="toc">
+    <p class="toc__title">目次</p>
+    <ol class="toc__list">
+      {tocHeadings.map((heading) => (
+        <li class={heading.depth === 3 ? 'toc__item toc__item--sub' : 'toc__item'}>
+          <a href={`#${heading.slug}`}>{heading.text}</a>
+        </li>
+      ))}
+    </ol>
+  </nav>
+)}
+
+<style>
+  .toc {
+    max-width: 100%;
+    margin: 1.5rem 0 2rem;
+    padding: 1.25rem 1.5rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background: #fafaf7;
+  }
+
+  .toc__title {
+    margin: 0 0 0.75rem;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #59483b;
+  }
+
+  .toc__list {
+    margin: 0;
+    padding-left: 1.5rem;
+    list-style-type: decimal;
+  }
+
+  .toc__item {
+    margin: 0.4rem 0;
+    font-size: 0.875rem;
+    line-height: 1.6;
+  }
+
+  .toc__item--sub {
+    margin-left: 1.25rem;
+    list-style-type: disc;
+  }
+
+  .toc__item a {
+    color: #16a34a;
+    text-decoration: none;
+  }
+
+  .toc__item a:hover {
+    text-decoration: underline;
+  }
+</style>

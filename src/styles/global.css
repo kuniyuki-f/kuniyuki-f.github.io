@@ -60,40 +60,7 @@ a:hover {
   padding: 0 1.25rem; /* 20px */
 }
 
-/* ページ共通 main */
-.page__main {
-  background-color: #f4f3ec;
-}
-
-/* ページヘッダー（各ページのタイトル部分） */
-.page__header {
-  padding: 3.4375rem 0; /* 55px */
-  text-align: center;
-  background-color: #f4f3ec;
-}
-
-.page__header-title {
-  font-size: 2.25rem; /* 36px */
-  font-weight: bold;
-  color: #333;
-  text-align: center;
-}
-
-.page__header-subtitle {
-  padding-top: 1em;
-  font-size: 1.25rem; /* 20px */
-  color: #333;
-}
-
-/* パンくずリスト */
-.breadcrumb {
-  display: flex;
-  align-items: center;
-  padding: 1em;
-  color: gray;
-  font-size: 0.875rem; /* 14px */
-}
-
+/* パンくずリンクスタイル */
 .breadcrumb a {
   color: gray;
   opacity: 0.8;
@@ -174,6 +141,81 @@ a:hover {
 .page-numbers .next,
 .page-numbers .prev {
   border: none;
+}
+
+/* =========================================
+   @layer components: カスタムクラス
+========================================= */
+@layer components {
+  /* ページ共通のメインエリア（クリーム背景） */
+  .page-main {
+    @apply bg-base text-[#333];
+  }
+
+  /* セクション・ページタイトル */
+  .section-title {
+    @apply text-[2.25rem] font-bold text-[#333] text-center;
+  }
+
+  /* ページセクションのパディング */
+  .section-pad {
+    @apply py-[3.4375rem];
+  }
+
+  /* もっと見るボタン */
+  .btn-more {
+    @apply inline-block px-8 py-3 text-[0.9375rem] font-medium no-underline
+           rounded bg-brown text-base border-2 border-brown transition-all
+           hover:bg-[#6b5749] hover:opacity-100;
+  }
+
+  /* カードリンク内タイトル */
+  .card-title {
+    @apply relative py-[0.6875rem] text-[1.25rem] font-bold text-green underline z-[1];
+  }
+
+  /* カードリンク内説明文 */
+  .card-desc {
+    @apply relative text-[0.875rem] text-[#555] z-[1] text-left;
+  }
+
+  /* パンくずリスト */
+  .breadcrumb {
+    @apply flex items-center p-4 text-[0.875rem] text-gray-500;
+  }
+
+  /* ブログ記事本文 (Markdown) スタイル */
+  .prose-content h2 {
+    @apply pt-[3.4375rem] pb-2 pl-2 text-[1.5rem] font-bold border-b border-[#ccc];
+  }
+  .prose-content h3 {
+    @apply pt-[2.0625rem] pl-2 text-[1.25rem] font-bold;
+  }
+  .prose-content p {
+    @apply p-4;
+  }
+  .prose-content a {
+    @apply font-bold text-green underline;
+  }
+  .prose-content ul,
+  .prose-content ol {
+    @apply py-2 px-4 pl-12;
+  }
+  .prose-content li {
+    @apply mb-2;
+  }
+  .prose-content pre {
+    @apply bg-[#1e1e1e] text-[1rem] p-5 rounded overflow-x-auto my-5;
+  }
+  .prose-content code {
+    @apply bg-[#f0ede6] px-2 py-[0.2rem] rounded text-[0.9em] font-mono;
+  }
+  .prose-content pre code {
+    @apply bg-transparent p-0 text-inherit;
+  }
+  .prose-content blockquote {
+    @apply border-l-4 border-green pl-4 m-4 text-[#555] italic;
+  }
 }
 
 /* スクロールトップボタン */

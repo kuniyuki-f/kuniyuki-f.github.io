@@ -6,14 +6,14 @@ const allPosts = await getCollection('blog');
 const posts = allPosts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 ---
 
-<Layout title="ブログ" description="WEB制作 Swing のブログです。WEB制作に関する情報や日記を発信しています。">
+<Layout title="ブログ" description="WEB工房 Swing のブログです。WEB制作に関する情報や日記を発信しています。">
 
-  <main class="page__main page__blog">
+  <main class="page-main">
 
     <!-- ページタイトル -->
-    <h2 class="page__blog__title">
+    <h2 class="flex flex-col items-center section-pad section-title mb-0 sm:py-[2.0625rem]">
       Blog
-      <span>ブログ</span>
+      <span class="pt-4 text-[1.25rem] font-bold">ブログ</span>
     </h2>
 
     <!-- 記事グリッド（2列） -->
@@ -25,29 +25,33 @@ const posts = allPosts.sort((a, b) => b.data.date.getTime() - a.data.date.getTim
           day: '2-digit',
         });
         return (
-          <article class="blog-article">
-            <a href={`/blog/${post.slug}/`} class="blog-article__link card-hover">
-              <div class="blog-article__img thumb-zoom">
+          <article class="w-full">
+            <a href={`/blog/${post.slug}/`} class="card-hover relative block p-5 no-underline text-inherit">
+              <!-- 画像コンテナ（16:9比率） -->
+              <div class="thumb-zoom blog-article__img relative mx-auto overflow-hidden rounded-[5px] shadow-[0_3px_10px_rgba(0,0,0,0.2)]">
                 <img
                   src={post.data.thumbnail || '/images/blog-default.jpg'}
                   alt={post.data.title}
                   loading="lazy"
-                  class="blog-article__thumb"
+                  class="blog-article__thumb block object-cover w-full h-full transition-transform duration-300"
                 />
               </div>
-              <h3 class="blog-article__title">{post.data.title}</h3>
-              <div class="blog-article__meta">
-                <time class="blog-article__time" datetime={post.data.date.toISOString()}>
+              <!-- タイトル -->
+              <h3 class="relative blog-article__title mx-auto py-[0.625rem] text-[1.25rem] font-bold text-[#333] z-[1]">{post.data.title}</h3>
+              <!-- メタ情報 -->
+              <div class="relative flex items-center justify-between blog-article__meta mx-auto text-[0.8125rem] z-[1]">
+                <time class="text-[#888]" datetime={post.data.date.toISOString()}>
                   {formattedDate}
                 </time>
                 {post.data.category && (
-                  <p class="blog-article__cat">
-                    <span>{post.data.category}</span>
+                  <p>
+                    <span class="text-[0.75rem] text-base bg-green px-[0.8rem] py-[0.2rem] rounded">{post.data.category}</span>
                   </p>
                 )}
               </div>
+              <!-- 抜粋 -->
               {post.data.excerpt && (
-                <p class="blog-article__excerpt">{post.data.excerpt}</p>
+                <p class="relative blog-article__excerpt mx-auto py-4 text-[0.875rem] text-[#555] z-[1]">{post.data.excerpt}</p>
               )}
             </a>
           </article>
@@ -56,10 +60,10 @@ const posts = allPosts.sort((a, b) => b.data.date.getTime() - a.data.date.getTim
     </section>
 
     <!-- パンくずリスト -->
-    <nav class="breadcrumb blog-breadcrumb" aria-label="パンくずリスト">
-      <a href="/">Home</a>
+    <nav class="breadcrumb max-w-[56.25rem] mx-auto" aria-label="パンくずリスト">
+      <a href="/">ホーム</a>
       <span class="breadcrumb__sep">></span>
-      <span>Blog</span>
+      <span>ブログ</span>
     </nav>
 
   </main>
@@ -67,146 +71,44 @@ const posts = allPosts.sort((a, b) => b.data.date.getTime() - a.data.date.getTim
 </Layout>
 
 <style>
-  .page__blog {
-    background-color: #f4f3ec;
-  }
-
-  /* ページタイトル */
-  .page__blog__title {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 3.4375rem 0; /* 55px */
-    font-size: 2.25rem; /* 36px */
-    font-weight: bold;
-    color: #333;
-    text-align: center;
-  }
-
-  .page__blog__title span {
-    padding-top: 1em;
-    font-size: 1.25rem; /* 20px */
-  }
-
-  /* グリッドレイアウト（2列・各500px） */
+  /* グリッドレイアウト（カスタム値が必要なため style タグで管理） */
   .blog-grid {
     display: grid;
-    grid-template-columns: 31.25rem 31.25rem; /* 500px each */
+    grid-template-columns: 31.25rem 31.25rem;
     justify-content: center;
   }
 
-  .blog-article {
-    width: 100%;
-  }
-
-  /* 記事カード */
-  .blog-article__link {
-    position: relative;
-    display: block;
-    padding: 1.25rem; /* 20px */
-    text-decoration: none;
-    color: inherit;
-  }
-
-  /* 画像コンテナ（16:9比率・450px幅） */
   .blog-article__img {
-    position: relative;
-    width: 28.125rem; /* 450px */
-    height: 15.820313rem; /* 253.125px = 450 * 9/16 */
-    margin: auto;
-    overflow: hidden;
-    border-radius: 5px;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+    width: 28.125rem;
+    height: 15.820313rem;
+    max-width: 28.125rem;
   }
 
-  .blog-article__thumb {
-    display: block;
-    object-fit: cover;
-    width: 100%;
-    height: 100%;
-    transition: transform 0.3s;
-  }
-
-  .blog-article__link:hover .blog-article__thumb {
-    transform: scale(1.1);
-  }
-
-  /* タイトル */
-  .blog-article__title {
-    position: relative;
-    max-width: 28.125rem; /* 450px */
-    margin: auto;
-    padding: 0.625rem 0; /* 10px */
-    font-size: 1.25rem; /* 20px */
-    font-weight: bold;
-    color: #333;
-    z-index: 1;
-  }
-
-  /* メタ情報 */
-  .blog-article__meta {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    max-width: 28.125rem; /* 450px */
-    margin: auto;
-    font-size: 0.8125rem; /* 13px */
-    z-index: 1;
-  }
-
-  .blog-article__time {
-    color: #888;
-  }
-
-  .blog-article__cat span {
-    font-size: 0.75rem; /* 12px */
-    color: #f4f3ec;
-    background-color: #16a34a;
-    padding: 0.2rem 0.8rem;
-    border-radius: 4px;
-  }
-
-  /* 抜粋 */
+  .blog-article__title,
+  .blog-article__meta,
   .blog-article__excerpt {
-    position: relative;
-    max-width: 28.125rem; /* 450px */
-    margin: auto;
-    padding: 1em 0;
-    font-size: 0.875rem; /* 14px */
-    color: #555;
-    z-index: 1;
+    max-width: 28.125rem;
   }
 
-  /* パンくずリスト */
-  .blog-breadcrumb {
-    max-width: 56.25rem; /* 900px */
-    margin: auto;
-  }
-
-  /* レスポンシブ */
   @media screen and (max-width: 1024px) {
     .blog-grid {
-      grid-template-columns: 21.875rem 21.875rem; /* 350px each */
+      grid-template-columns: 21.875rem 21.875rem;
     }
 
     .blog-article__img {
-      width: 18.75rem; /* 300px */
-      height: 10.546875rem; /* 168.75px */
+      width: 18.75rem;
+      height: 10.546875rem;
+      max-width: 18.75rem;
     }
 
     .blog-article__title,
     .blog-article__meta,
     .blog-article__excerpt {
-      max-width: 18.75rem; /* 300px */
+      max-width: 18.75rem;
     }
   }
 
   @media screen and (max-width: 767px) {
-    .page__blog__title {
-      padding: 2.0625rem 0; /* 33px */
-    }
-
     .blog-grid {
       display: flex;
       flex-direction: column;

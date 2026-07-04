@@ -2,93 +2,122 @@
 import Layout from '../../layouts/Layout.astro';
 ---
 
-<Layout title="お問い合わせ" description="WEB制作 Swing へのお問い合わせページです。">
+<Layout title="お問い合わせ" description="WEB工房 Swing へのお問い合わせページです。">
 
-  <main class="page__main contact">
+  <main class="page-main px-5">
 
     <!-- ページタイトル -->
-    <div class="contact__title">
-      <h2>Contact</h2>
+    <div class="pt-[3.4375rem] text-center sm:pt-[2.0625rem]">
+      <h2 class="section-title">Contact</h2>
     </div>
 
     <!-- 説明テキスト -->
-    <p class="contact__text">
-      ご依頼・ご相談・ご質問など、お気軽にお問い合わせください。<br />
-      2〜3営業日以内にご返信いたします。
+    <p class="max-w-[20.9375rem] py-[2.0625rem] mx-auto text-left text-[0.9375rem] leading-[1.8]">
+      お仕事のご依頼、ご相談など、下記フォームにて承ります。TwitterのDMも随時受付けております。どうぞお気軽にお問い合わせ下さい。<br />
+      ※ お問い合わせ受付後、通常3日以内にご連絡いたします。
     </p>
 
     <!-- アイコン -->
-    <div class="contact__icon">
-      <span class="material-icons-outlined">mail</span>
+    <div class="text-center">
+      <span class="material-icons-outlined block text-[5rem] text-[#333] mx-auto">mail</span>
     </div>
 
     <!-- フォーム -->
-    <div class="wpcf7">
-      <form action="#" method="post" novalidate>
-        <!-- お名前 -->
-        <p>
-          <span class="contact__head">
-            <label for="name">お名前</label>
-            <span class="contact__must">必須</span>
+    <div class="flex justify-center px-5 mx-auto">
+      <form action="#" method="post" novalidate class="w-full max-w-[31.25rem]">
+        <!-- 貴社名 -->
+        <p class="mt-5">
+          <span class="flex items-center justify-between max-w-[12.5rem] mt-[1.375rem] text-[0.9375rem]">
+            <label for="company">貴社名</label>
+            <span class="px-[0.5em] py-[0.25em] text-[0.75em] text-base bg-[#333] rounded-[5px]">任意</span>
           </span>
-          <input type="text" id="name" name="name" placeholder="山田 太郎" required />
+          <input type="text" id="company" name="company" placeholder="株式会社○○"
+            class="w-full p-2 mt-2 border border-[#333] bg-white text-[0.9375rem] font-[inherit] focus:outline-none focus:border-green"
+          />
+        </p>
+
+        <!-- お名前 -->
+        <p class="mt-5">
+          <span class="flex items-center justify-between max-w-[12.5rem] mt-[1.375rem] text-[0.9375rem]">
+            <label for="name">お名前</label>
+            <span class="px-[0.5em] py-[0.25em] text-[0.75em] text-base bg-brown rounded-[5px]">必須</span>
+          </span>
+          <input type="text" id="name" name="name" placeholder="山田 太郎" required
+            class="w-full p-2 mt-2 border border-[#333] bg-white text-[0.9375rem] font-[inherit] focus:outline-none focus:border-green"
+          />
         </p>
 
         <!-- メールアドレス -->
-        <p>
-          <span class="contact__head">
+        <p class="mt-5">
+          <span class="flex items-center justify-between max-w-[12.5rem] mt-[1.375rem] text-[0.9375rem]">
             <label for="email">メールアドレス</label>
-            <span class="contact__must">必須</span>
+            <span class="px-[0.5em] py-[0.25em] text-[0.75em] text-base bg-brown rounded-[5px]">必須</span>
           </span>
-          <input type="email" id="email" name="email" placeholder="example@mail.com" required />
+          <input type="email" id="email" name="email" placeholder="example@mail.com" required
+            class="w-full p-2 mt-2 border border-[#333] bg-white text-[0.9375rem] font-[inherit] focus:outline-none focus:border-green"
+          />
         </p>
 
-        <!-- 件名 -->
-        <p>
-          <span class="contact__head">
-            <label for="subject">件名</label>
-            <span class="contact__option">任意</span>
+        <!-- 電話番号 -->
+        <p class="mt-5">
+          <span class="flex items-center justify-between max-w-[12.5rem] mt-[1.375rem] text-[0.9375rem]">
+            <label for="tel">電話番号</label>
+            <span class="px-[0.5em] py-[0.25em] text-[0.75em] text-base bg-[#333] rounded-[5px]">任意</span>
           </span>
-          <input type="text" id="subject" name="subject" placeholder="WEBサイト制作のご相談" />
+          <input type="tel" id="tel" name="tel" placeholder="090-1234-5678"
+            class="w-full p-2 mt-2 border border-[#333] bg-white text-[0.9375rem] font-[inherit] focus:outline-none focus:border-green"
+          />
         </p>
 
         <!-- お問い合わせ内容 -->
-        <p>
-          <span class="contact__head">
+        <p class="mt-5">
+          <span class="flex items-center justify-between max-w-[12.5rem] mt-[1.375rem] text-[0.9375rem]">
             <label for="message">お問い合わせ内容</label>
-            <span class="contact__must">必須</span>
+            <span class="px-[0.5em] py-[0.25em] text-[0.75em] text-base bg-brown rounded-[5px]">必須</span>
           </span>
-          <textarea id="message" name="message" rows="8" placeholder="お問い合わせ内容をご記入ください。" required></textarea>
+          <textarea id="message" name="message" rows="8" placeholder="お問い合わせ内容をご記入ください。" required
+            class="w-full p-2 mt-2 resize-y border border-[#333] bg-white text-[0.9375rem] font-[inherit] focus:outline-none focus:border-green"
+          ></textarea>
         </p>
 
         <!-- プライバシーポリシー同意 -->
-        <p class="contact__privacy">
-          <label>
-            <input type="checkbox" id="privacy" name="privacy" required />
-            <a href="/privacy/" class="contact__privacy-link" target="_blank">プライバシーポリシー</a>
+        <p class="mt-5 text-[0.75rem]">
+          <label class="flex items-center gap-4 cursor-pointer">
+            <input
+              type="checkbox"
+              id="privacy"
+              name="privacy"
+              required
+              class="w-6 h-6 m-0 cursor-pointer accent-green flex-shrink-0"
+            />
+            <a href="/privacy/" class="font-bold text-green underline" target="_blank">プライバシーポリシー</a>
             に同意する
           </label>
         </p>
 
         <!-- 送信ボタン -->
-        <p>
-          <button type="submit" class="contact__submit disabled" id="submit-btn">
-            送信する
+        <p class="mt-5">
+          <button
+            type="submit"
+            class="contact__submit block w-full max-w-[7.5rem] px-4 py-4 mx-auto mt-[1.375rem] text-base text-[0.9375rem] font-bold font-[inherit] text-center bg-brown border-none rounded-[3.4375rem] cursor-pointer transition-colors duration-300 disabled"
+            id="submit-btn"
+          >
+            送信
           </button>
         </p>
 
-        <p class="contact__note">
+        <p class="text-[0.8125rem] text-[#888] leading-[1.7] mt-5">
           ※ このフォームはデモ表示です。実際の送信機能は準備中です。<br />
-          お急ぎの場合は <a href="https://twitter.com/swing_web" target="_blank" rel="noopener noreferrer">Twitter DM（@swing_web）</a> からご連絡ください。
+          お急ぎの場合は <a href="https://twitter.com/swing_web" target="_blank" rel="noopener noreferrer" class="text-green underline">Twitter DM（@swing_web）</a> からご連絡ください。
         </p>
       </form>
     </div>
 
     <!-- パンくずリスト -->
-    <nav class="breadcrumb" aria-label="パンくずリスト">
-      <a href="/">Home</a>
+    <nav class="breadcrumb max-w-[25.625rem] mx-auto" aria-label="パンくずリスト">
+      <a href="/">ホーム</a>
       <span class="breadcrumb__sep">></span>
-      <span>Contact</span>
+      <span>お問い合わせ</span>
     </nav>
 
   </main>
@@ -109,188 +138,13 @@ import Layout from '../../layouts/Layout.astro';
 </script>
 
 <style>
-  .contact {
-    padding: 0 1.25rem; /* 20px */
-    background-color: #f4f3ec;
-    color: #333;
-  }
-
-  /* ページタイトル */
-  .contact__title {
-    padding-top: 3.4375rem; /* 55px */
-    text-align: center;
-  }
-
-  .contact__title h2 {
-    font-size: 2.25rem; /* 36px */
-    font-weight: bold;
-  }
-
-  /* 説明テキスト */
-  .contact__text {
-    max-width: 20.9375rem; /* 335px */
-    padding: 2.0625rem 0; /* 33px */
-    margin: auto;
-    text-align: left;
-    font-size: 0.9375rem; /* 15px */
-    line-height: 1.8;
-  }
-
-  /* アイコン */
-  .contact__icon {
-    text-align: center;
-  }
-
-  .contact__icon .material-icons-outlined {
-    font-size: 5rem; /* 80px */
-    color: #333;
-    transform: rotate(0deg);
-    display: block;
-    margin: auto;
-  }
-
-  /* フォームラッパー */
-  .wpcf7 {
-    display: flex;
-    justify-content: center;
-    padding: 1.25rem; /* 20px */
-    margin: auto;
-  }
-
-  .wpcf7 form {
-    width: 100%;
-    max-width: 31.25rem; /* 500px */
-  }
-
-  .wpcf7 input,
-  .wpcf7 textarea {
-    width: 100%;
-    padding: 0.5rem; /* 8px */
-    margin-top: 0.5rem; /* 8px */
-    resize: vertical;
-    border: 1px solid #333;
-    font-family: inherit;
-    font-size: 0.9375rem; /* 15px */
-    background-color: #fff;
-  }
-
-  .wpcf7 input:focus,
-  .wpcf7 textarea:focus {
-    outline: none;
-    border-color: #16a34a;
-  }
-
-  .wpcf7 p {
-    margin-top: 1.25rem; /* 20px */
-  }
-
-  /* ラベルとバッジの行 */
-  .contact__head {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    max-width: 12.5rem; /* 200px */
-    margin-top: 1.375rem; /* 22px */
-    font-size: 0.9375rem; /* 15px */
-  }
-
-  /* 任意バッジ */
-  .contact__option {
-    padding: 0.25em 0.5em;
-    font-size: 0.75em;
-    color: #f4f3ec;
-    background-color: #333;
-    border-radius: 5px;
-  }
-
-  /* 必須バッジ */
-  .contact__must {
-    padding: 0.25em 0.5em;
-    font-size: 0.75em;
-    color: #f4f3ec;
-    background-color: #59483b;
-    border-radius: 5px;
-  }
-
-  /* プライバシーポリシー */
-  .contact__privacy {
-    font-size: 0.75rem; /* 12px */
-  }
-
-  .contact__privacy label {
-    display: flex;
-    column-gap: 1rem; /* 16px */
-    align-items: center;
-    cursor: pointer;
-  }
-
-  .contact__privacy input[type="checkbox"] {
-    width: 1.5rem; /* 24px */
-    height: 1.5rem; /* 24px */
-    margin: 0;
-    cursor: pointer;
-    accent-color: #16a34a;
-    flex-shrink: 0;
-  }
-
-  .contact__privacy-link {
-    font-weight: bold;
-    color: #16a34a;
-    text-decoration: underline;
-  }
-
-  /* 送信ボタン */
-  .contact__submit {
-    display: block;
-    width: 100%;
-    max-width: 7.5rem; /* 120px */
-    padding: 1em;
-    margin: auto;
-    margin-top: 1.375rem; /* 22px */
-    color: #f4f3ec;
-    font-size: 0.9375rem; /* 15px */
-    font-family: inherit;
-    font-weight: bold;
-    text-align: center;
-    background-color: #59483b;
-    border: none;
-    border-radius: 3.4375rem; /* 55px */
-    cursor: pointer;
-    transition: background-color 0.3s;
-  }
-
-  .contact__submit:not(.disabled):hover {
-    background-color: #6b5749;
-  }
-
-  /* 無効状態 */
+  /* 送信ボタンの無効状態（Tailwindでは動的クラス管理が難しいため） */
   .contact__submit.disabled {
     pointer-events: none;
     background-color: #b8a89e;
   }
 
-  .contact__note {
-    font-size: 0.8125rem; /* 13px */
-    color: #888;
-    line-height: 1.7;
-    margin-top: 1.25rem; /* 20px */
-  }
-
-  .contact__note a {
-    color: #16a34a;
-    text-decoration: underline;
-  }
-
-  /* パンくずリスト */
-  .breadcrumb {
-    max-width: 25.625rem; /* 410px */
-    margin: auto;
-  }
-
-  /* レスポンシブ */
-  @media screen and (max-width: 767px) {
-    .contact__title {
-      padding-top: 2.0625rem; /* 33px */
-    }
+  .contact__submit:not(.disabled):hover {
+    background-color: #6b5749;
   }
 </style>

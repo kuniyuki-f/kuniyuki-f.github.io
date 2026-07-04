@@ -11,42 +11,43 @@ const allPosts = await getCollection('blog');
 const posts = allPosts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime()).slice(0, 3);
 ---
 
-<Layout title="ホーム" description="WEB制作 Swing - フリーランスWEBデザイナー・エンジニア くにゆきのポートフォリオサイト">
+<Layout title="トップページ" description="WEB工房 Swing - フリーランスWEBデザイナー・エンジニア くにゆきのポートフォリオサイト">
 
   <!-- キャッチコピーセクション（元テーマ準拠：テキストのみ、背景rgba） -->
-  <p class="front-page__catch-copy">
-    <strong>大阪のフリーランス<br>WEBエンジニア</strong>
+  <p class="py-[3.4375rem] my-[13.75rem] mx-auto bg-[rgba(244,243,236,0.8)] text-center text-[#333] text-[1.5rem] sm:text-[1.125rem]">
+    <strong>使えば使うほど好きになる 素敵なWEBサイトを制作します</strong>
   </p>
 
   <!-- Serviceセクション -->
-  <section class="front-page__service">
-    <h2 class="front-page__service-title">Service</h2>
-    <p class="front-page__service-desc">
-      WEBサイト制作からフロントエンド開発まで、お客様のニーズに合わせてお手伝いします。
+  <section class="section-pad page-main text-center sm:py-[2.0625rem]">
+    <h2 class="section-title mb-0">Service</h2>
+    <p class="max-w-[80rem] px-[1.375rem] py-[1.375rem] mx-auto text-[#333]">
+      サーバーの設定からWEBサイトの公開までワンストップで対応いたします。納品後のサポートも承ります。
     </p>
-    <div class="service__icons-wrapper">
-      <div class="service__icon-item">
-        <span class="material-icons-outlined">web</span>
-        <h3>WEBサイト制作</h3>
-        <p>コーポレートサイト・ポートフォリオサイトなどを制作します。</p>
+    <div class="grid grid-cols-3 justify-center text-center gap-5 px-5 sm:grid-cols-[6.25rem_6.25rem_6.25rem]"
+         style="grid-template-columns: 12.5rem 12.5rem 12.5rem;">
+      <div class="px-[0.625rem] py-5">
+        <span class="material-icons-outlined block text-[6.25rem] text-[#333] mb-[0.625rem] sm:text-[3.75rem]">web</span>
+        <h3 class="text-[1.125rem] font-bold text-brown mb-[0.625rem]">WEBサイト制作</h3>
+        <p class="text-[0.875rem] text-[#555] leading-[1.7]">コーポレートサイト・ポートフォリオサイト・ブログ等のオウンドメディアを制作します。SEO対策済み。</p>
       </div>
-      <div class="service__icon-item">
-        <span class="material-icons-outlined">code</span>
-        <h3>フロントエンド開発</h3>
-        <p>HTML/CSS/JavaScriptを使ったモダンな開発を行います。</p>
+      <div class="px-[0.625rem] py-5">
+        <span class="material-icons-outlined block text-[6.25rem] text-[#333] mb-[0.625rem] sm:text-[3.75rem]">code</span>
+        <h3 class="text-[1.125rem] font-bold text-brown mb-[0.625rem]">フロントエンド開発</h3>
+        <p class="text-[0.875rem] text-[#555] leading-[1.7]">HTML/CSS/JavaScriptを使ったモダンな開発を行います。</p>
       </div>
-      <div class="service__icon-item">
-        <span class="material-icons-outlined">dns</span>
-        <h3>WordPress構築</h3>
-        <p>オリジナルテーマの開発・カスタマイズに対応します。</p>
+      <div class="px-[0.625rem] py-5">
+        <span class="material-icons-outlined block text-[6.25rem] text-[#333] mb-[0.625rem] sm:text-[3.75rem]">dns</span>
+        <h3 class="text-[1.125rem] font-bold text-brown mb-[0.625rem]">WordPress構築</h3>
+        <p class="text-[0.875rem] text-[#555] leading-[1.7]">オリジナルテーマの開発・カスタマイズに対応します。</p>
       </div>
     </div>
   </section>
 
   <!-- Worksセクション -->
-  <section class="front-page__works">
-    <h2 class="front-page__works-title">Works</h2>
-    <div class="front-page-works">
+  <section class="section-pad page-main mt-[6.875rem] sm:py-[2.0625rem]">
+    <h2 class="section-title mb-0">Works</h2>
+    <div class="flex justify-evenly mx-auto my-[3.4375rem] text-center flex-wrap gap-5 md:flex-col md:items-center">
       {works.map((work) => (
         <WorkCard
           title={work.data.title}
@@ -56,15 +57,15 @@ const posts = allPosts.sort((a, b) => b.data.date.getTime() - a.data.date.getTim
         />
       ))}
     </div>
-    <div class="front-page__more">
-      <a href="/works/" class="front-page__more-btn">実績をすべて見る</a>
+    <div class="text-center pb-[1.375rem]">
+      <a href="/works/" class="btn-more">もっと見る</a>
     </div>
   </section>
 
   <!-- Blogセクション -->
-  <section class="front-page__blog">
-    <h2 class="front-page__blog-title">Blog</h2>
-    <div class="front-page-posts">
+  <section class="section-pad page-main mt-[6.875rem] sm:py-[2.0625rem]">
+    <h2 class="section-title mb-0">Blog</h2>
+    <div class="flex justify-evenly mx-auto my-[3.4375rem] text-center flex-wrap gap-5 md:flex-col md:items-center">
       {posts.map((post) => (
         <BlogCard
           title={post.data.title}
@@ -76,188 +77,18 @@ const posts = allPosts.sort((a, b) => b.data.date.getTime() - a.data.date.getTim
         />
       ))}
     </div>
-    <div class="front-page__more">
-      <a href="/blog/" class="front-page__more-btn">記事をすべて見る</a>
+    <div class="text-center pb-[1.375rem]">
+      <a href="/blog/" class="btn-more">記事一覧へ</a>
     </div>
   </section>
 
 </Layout>
 
 <style>
-  /* =========================================
-     キャッチコピーセクション（元テーマ準拠）
-  ========================================= */
-  .front-page__catch-copy {
-    padding: 3.4375rem 0; /* 55px */
-    margin: 13.75rem auto; /* 220px */
-    background-color: rgba(244, 243, 236, 0.8);
-    text-align: center;
-    color: #333;
-    font-size: 1.5rem; /* 24px */
-  }
-
-  /* =========================================
-     Serviceセクション
-  ========================================= */
-  .front-page__service {
-    padding: 3.4375rem 0; /* 55px */
-    background-color: #f4f3ec;
-    text-align: center;
-  }
-
-  .front-page__service-title {
-    font-size: 2.25rem; /* 36px */
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 0;
-  }
-
-  .front-page__service-desc {
-    max-width: 80rem; /* 1280px */
-    padding: 1.375rem; /* 22px */
-    margin: auto;
-    color: #333;
-  }
-
-  .service__icons-wrapper {
-    display: grid;
-    grid-template-columns: 12.5rem 12.5rem 12.5rem; /* 200px each */
-    justify-content: center;
-    text-align: center;
-    gap: 1.25rem; /* 20px */
-    padding: 0 1.25rem; /* 20px */
-  }
-
-  .service__icon-item {
-    padding: 1.25rem 0.625rem; /* 20px 10px */
-  }
-
-  .service__icon-item .material-icons-outlined {
-    font-size: 6.25rem; /* 100px */
-    color: #333;
-    display: block;
-    margin-bottom: 0.625rem; /* 10px */
-  }
-
-  .service__icon-item h3 {
-    font-size: 1.125rem; /* 18px */
-    font-weight: bold;
-    color: #59483b;
-    margin-bottom: 0.625rem; /* 10px */
-  }
-
-  .service__icon-item p {
-    font-size: 0.875rem; /* 14px */
-    color: #555;
-    line-height: 1.7;
-  }
-
-  /* =========================================
-     Worksセクション
-  ========================================= */
-  .front-page__works {
-    padding: 3.4375rem 0; /* 55px */
-    margin-top: 6.875rem; /* 110px */
-    background-color: #f4f3ec;
-  }
-
-  .front-page__works-title {
-    font-size: 2.25rem; /* 36px */
-    font-weight: bold;
-    color: #333;
-    text-align: center;
-    margin-bottom: 0;
-  }
-
-  .front-page-works {
-    display: flex;
-    justify-content: space-evenly;
-    margin: 3.4375rem auto; /* 55px */
-    text-align: center;
-    flex-wrap: wrap;
-    gap: 1.25rem; /* 20px */
-  }
-
-  /* =========================================
-     Blogセクション
-  ========================================= */
-  .front-page__blog {
-    padding: 3.4375rem 0; /* 55px */
-    margin-top: 6.875rem; /* 110px */
-    background-color: #f4f3ec;
-  }
-
-  .front-page__blog-title {
-    font-size: 2.25rem; /* 36px */
-    font-weight: bold;
-    color: #333;
-    text-align: center;
-    margin-bottom: 0;
-  }
-
-  .front-page-posts {
-    display: flex;
-    justify-content: space-evenly;
-    margin: 3.4375rem auto; /* 55px */
-    text-align: center;
-    flex-wrap: wrap;
-    gap: 1.25rem; /* 20px */
-  }
-
-  /* =========================================
-     もっと見るボタン
-  ========================================= */
-  .front-page__more {
-    text-align: center;
-    padding-bottom: 1.375rem; /* 22px */
-  }
-
-  .front-page__more-btn {
-    display: inline-block;
-    padding: 0.75rem 2rem; /* 12px 32px */
-    font-size: 0.9375rem; /* 15px */
-    font-weight: 500;
-    text-decoration: none;
-    border-radius: 4px;
-    background-color: #59483b;
-    color: #f4f3ec;
-    border: 2px solid #59483b;
-    transition: all 0.3s;
-  }
-
-  .front-page__more-btn:hover {
-    background-color: #6b5749;
-    opacity: 1;
-  }
-
-  /* =========================================
-     レスポンシブ
-  ========================================= */
-  @media screen and (max-width: 1024px) {
-    .front-page-works,
-    .front-page-posts {
-      flex-direction: column;
-      align-items: center;
-    }
-  }
-
+  /* Service グリッドのレスポンシブ（カスタム値のため style タグで管理） */
   @media screen and (max-width: 767px) {
-    .front-page__catch-copy {
-      font-size: 1.125rem; /* 18px */
-    }
-
-    .front-page__service,
-    .front-page__works,
-    .front-page__blog {
-      padding: 2.0625rem 0; /* 33px */
-    }
-
-    .service__icons-wrapper {
-      grid-template-columns: 6.25rem 6.25rem 6.25rem; /* 100px each */
-    }
-
-    .service__icon-item .material-icons-outlined {
-      font-size: 3.75rem; /* 60px */
+    .service-grid {
+      grid-template-columns: 6.25rem 6.25rem 6.25rem;
     }
   }
 </style>

@@ -1,0 +1,27 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="ページが見つかりません">
+
+  <main class="page-main px-5">
+
+    <div class="flex flex-col items-center justify-center min-h-[50vh] text-center">
+      <p class="text-[6rem] font-bold text-brown/30 leading-none">404</p>
+      <h2 class="section-title mt-4">ページが見つかりません</h2>
+      <p class="mt-6 text-[0.9375rem] leading-[1.8]">
+        お探しのページは存在しないか、移動した可能性があります。
+      </p>
+      <a href="/" class="btn-more mt-8">ホームへ戻る</a>
+    </div>
+
+    <!-- パンくずリスト -->
+    <nav class="breadcrumb max-w-[25.625rem] mx-auto" aria-label="パンくずリスト">
+      <a href="/">ホーム</a>
+      <span class="breadcrumb__sep">></span>
+      <span>404</span>
+    </nav>
+
+  </main>
+
+</Layout>

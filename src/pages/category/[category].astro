@@ -1,0 +1,65 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import BlogCard from '../../components/BlogCard.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const allPosts = await getCollection('blog');
+
+  // 全カテゴリを抽出（空文字・undefinedを除外）
+  const categories = [...new Set(
+    allPosts
+      .map((post) => post.data.category)
+      .filter((cat): cat is string => !!cat)
+  )];
+
+  return categories.map((category) => ({
+    params: { category: category.toLowerCase() },
+    props: {
+      category,
+      posts: allPosts
+        .filter((post) => post.data.category === category)
+        .sort((a, b) => b.data.date.getTime() - a.data.date.getTime()),
+    },
+  }));
+}
+
+const { category, posts } = Astro.props;
+---
+
+<Layout title={`カテゴリ：${category}`} description={`「${category}」カテゴリの記事一覧です。`}>
+
+  <main class="page-main">
+
+    <!-- ページタイトル -->
+    <div class="section-pad text-center sm:py-[2.0625rem]">
+      <h2 class="section-title">カテゴリ：{category}</h2>
+      <p class="text-[0.875rem] text-[#888] mt-2">{posts.length}件の記事</p>
+    </div>
+
+    <!-- 記事一覧（2列グリッド） -->
+    <div class="flex justify-center flex-wrap gap-5 px-5 pb-[3.4375rem] sm:flex-col sm:items-center">
+      {posts.map((post) => (
+        <BlogCard
+          title={post.data.title}
+          slug={post.slug}
+          date={post.data.date}
+          category={post.data.category}
+          thumbnail={post.data.thumbnail}
+          excerpt={post.data.excerpt}
+        />
+      ))}
+    </div>
+
+    <!-- パンくずリスト -->
+    <nav class="breadcrumb max-w-[56.25rem] mx-auto" aria-label="パンくずリスト">
+      <a href="/">ホーム</a>
+      <span class="breadcrumb__sep">></span>
+      <a href="/blog/">ブログ</a>
+      <span class="breadcrumb__sep">></span>
+      <span>{category}</span>
+    </nav>
+
+  </main>
+
+</Layout>

@@ -6,37 +6,46 @@ const allWorks = await getCollection('works');
 const works = allWorks.sort((a, b) => (a.data.order ?? 99) - (b.data.order ?? 99));
 ---
 
-<Layout title="活動実績" description="WEB制作 Swing の活動実績一覧です。">
+<Layout title="制作実績" description="WEB工房 Swingの制作実績です。非公開の案件でも、これまで10件以上のWEB制作・システム保守案件に携わってまいりました。">
 
-  <main class="page__main works-page">
+  <main class="page-main">
 
     <!-- ページタイトル -->
-    <div class="works-page__content">
-      <h2 class="works-page__title">活動実績</h2>
+    <div class="page-main section-pad text-center">
+      <h2 class="section-title">Works</h2>
+      <p class="max-w-[37.5rem] mx-auto px-4 pt-[1.375rem] text-[0.9375rem] leading-[1.8] text-[#555]">
+        制作実績を公開しています。非公開の案件でも、これまで10件以上のWEB制作・システム保守案件に携わってまいりました。
+      </p>
+      <p class="max-w-[37.5rem] mx-auto px-4 pt-[0.5rem] text-[0.8125rem] text-[#888]">
+        ※ 下記コンテンツをクリックまたはタップすると別タブでページが開きます。
+      </p>
     </div>
 
     <!-- 実績カード一覧（縦1列） -->
-    <div class="entry-items">
+    <div>
       {works.map((work) => (
-        <article class="works-article">
-          <div class="works-article__inner">
+        <article class="section-pad page-main border-b border-brown/10 sm:py-[2.0625rem]">
+          <div>
             <a
               href={work.data.link}
               target="_blank"
               rel="noopener noreferrer"
-              class="card-hover"
+              class="card-hover relative flex flex-col items-center max-w-[40rem] px-5 py-[3.4375rem] mx-auto no-underline sm:max-w-[20rem] sm:py-[2.0625rem]"
             >
-              <div class="works-article__img thumb-zoom">
+              <!-- 画像コンテナ（16:9比率・600px幅） -->
+              <div class="thumb-zoom relative w-[37.5rem] h-[21.09375rem] overflow-hidden rounded-[5px] shadow-[0_3px_10px_rgba(0,0,0,0.2)] sm:w-[18.75rem] sm:h-[10.546875rem]">
                 <img
                   src={work.data.thumbnail}
                   alt={work.data.title}
                   loading="lazy"
-                  class="works-article__thumb"
+                  class="object-cover w-full h-full transition-transform duration-300"
                 />
               </div>
-              <h3 class="works-article__title">{work.data.title}</h3>
+              <!-- タイトル -->
+              <h3 class="card-title pt-[1.375rem]">{work.data.title}</h3>
+              <!-- 説明文 -->
               {work.data.description && (
-                <p class="works-article__description">{work.data.description}</p>
+                <p class="card-desc pt-[1.375rem] text-center">{work.data.description}</p>
               )}
             </a>
           </div>
@@ -44,120 +53,15 @@ const works = allWorks.sort((a, b) => (a.data.order ?? 99) - (b.data.order ?? 99
       ))}
     </div>
 
+    <!-- 非公開案件注記（導入テキストに統合したため削除） -->
+
     <!-- パンくずリスト -->
-    <nav class="breadcrumb works-breadcrumb" aria-label="パンくずリスト">
-      <a href="/">Home</a>
+    <nav class="breadcrumb max-w-[56.25rem] mx-auto" aria-label="パンくずリスト">
+      <a href="/">ホーム</a>
       <span class="breadcrumb__sep">></span>
-      <span>Works</span>
+      <span>制作実績</span>
     </nav>
 
   </main>
 
 </Layout>
-
-<style>
-  .works-page {
-    background-color: #f4f3ec;
-  }
-
-  /* ページタイトル */
-  .works-page__content {
-    background-color: #f4f3ec;
-  }
-
-  .works-page__title {
-    padding: 3.4375rem 0; /* 55px */
-    font-size: 2.25rem; /* 36px */
-    font-weight: bold;
-    color: #333;
-    text-align: center;
-  }
-
-  /* 実績カード（縦1列・中央揃え） */
-  .works-article {
-    padding: 3.4375rem 0; /* 55px */
-    background-color: #f4f3ec;
-    border-bottom: 1px solid rgba(89, 72, 59, 0.1);
-  }
-
-  .works-article__inner a {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    max-width: 40rem; /* 640px */
-    padding: 3.4375rem 1.25rem; /* 55px 20px */
-    margin: auto;
-    text-decoration: none;
-  }
-
-  /* 画像コンテナ（16:9比率・600px幅） */
-  .works-article__img {
-    position: relative;
-    width: 37.5rem; /* 600px */
-    height: 21.09375rem; /* 337.5px = 600 * 9/16 */
-    overflow: hidden;
-    border-radius: 5px;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
-  }
-
-  .works-article__thumb {
-    object-fit: cover;
-    width: 100%;
-    height: 100%;
-    transition: transform 0.3s;
-  }
-
-  .works-article__inner a:hover .works-article__thumb {
-    transform: scale(1.1);
-  }
-
-  /* タイトル */
-  .works-article__title {
-    position: relative;
-    padding-top: 1.375rem; /* 22px */
-    font-size: 1.25rem; /* 20px */
-    font-weight: bold;
-    color: #16a34a;
-    text-decoration: underline;
-    z-index: 1;
-  }
-
-  /* 説明文 */
-  .works-article__description {
-    position: relative;
-    padding-top: 1.375rem; /* 22px */
-    font-size: 0.9375rem; /* 15px */
-    color: #555;
-    text-align: center;
-    z-index: 1;
-  }
-
-  /* パンくずリスト */
-  .works-breadcrumb {
-    max-width: 56.25rem; /* 900px */
-    margin: auto;
-    padding: 1.25rem; /* 20px */
-  }
-
-  /* レスポンシブ */
-  @media screen and (max-width: 767px) {
-    .works-page__title {
-      padding: 2.0625rem 0; /* 33px */
-    }
-
-    .works-article {
-      padding: 2.0625rem 0; /* 33px */
-    }
-
-    .works-article__inner a {
-      max-width: 20rem; /* 320px */
-      padding: 2.0625rem 1.25rem; /* 33px 20px */
-    }
-
-    .works-article__img {
-      width: 18.75rem; /* 300px */
-      height: 10.546875rem; /* 168.75px */
-    }
-  }
-</style>

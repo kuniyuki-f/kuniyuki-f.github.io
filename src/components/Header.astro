@@ -10,40 +10,54 @@ const navItems = [
 const currentPath = Astro.url.pathname;
 ---
 
-<header>
+<header class="sticky top-0 z-[2] flex items-center justify-between h-[3.75rem] px-5 bg-base shadow-[0_3px_6px_#0000001a]">
   <!-- ロゴ（トップページはh1、それ以外はdiv） -->
   {currentPath === '/'
-    ? <h1 class="header__site-title"><a href="/" class="custom-logo-link"><img src="/images/logo.png" alt="WEB制作 Swing" class="custom-logo" /></a></h1>
-    : <div class="header__site-title"><a href="/" class="custom-logo-link"><img src="/images/logo.png" alt="WEB制作 Swing" class="custom-logo" /></a></div>
+    ? <h1 class="m-0"><a href="/"><img src="/images/logo.png" alt="WEB工房 Swing" class="w-auto max-h-[3.75rem]" /></a></h1>
+    : <div><a href="/"><img src="/images/logo.png" alt="WEB工房 Swing" class="w-auto max-h-[3.75rem]" /></a></div>
   }
 
-  <!-- ナビゲーション（アイコンのみ） -->
-  <nav class="header__navigation">
-    <ul class="header-menu">
+  <!-- ナビゲーション（アイコンのみ、スマホは非表示） -->
+  <nav class="sm:hidden">
+    <ul class="flex h-[3.75rem] leading-[3.75rem] list-none m-0 p-0">
       {navItems.map((item) => (
-        <li class:list={['menu-item', { 'current-menu-item': currentPath.startsWith(item.href) }]}>
-          <a href={item.href} title={item.label}>
-            <i class={item.iconSet}>{item.icon}</i>
+        <li class:list={[{ 'text-green': currentPath.startsWith(item.href) }]}>
+          <a
+            href={item.href}
+            title={item.label}
+            class:list={[
+              'flex items-center justify-center h-full px-4 ml-4 no-underline transition-colors duration-200',
+              currentPath.startsWith(item.href) ? 'text-green' : 'text-brown hover:text-green'
+            ]}
+          >
+            <i class={`${item.iconSet} text-[1.5rem] leading-[inherit]`}>{item.icon}</i>
           </a>
         </li>
       ))}
     </ul>
   </nav>
 
-  <!-- ハンバーガーボタン（スマホ用） -->
-  <button class="header__hamburger" id="hamburger-btn" aria-label="メニューを開く">
-    <span></span>
-    <span></span>
-    <span></span>
+  <!-- ハンバーガーボタン（スマホ用、PCは非表示） -->
+  <button
+    class="hidden sm:flex flex-col justify-center gap-[5px] w-[1.875rem] h-[1.875rem] bg-transparent border-none cursor-pointer p-0 flex-shrink-0"
+    id="hamburger-btn"
+    aria-label="メニューを開く"
+  >
+    <span class="block w-full h-[2px] bg-brown transition-transform duration-300 origin-center"></span>
+    <span class="block w-full h-[2px] bg-brown transition-opacity duration-300"></span>
+    <span class="block w-full h-[2px] bg-brown transition-transform duration-300 origin-center"></span>
   </button>
 
   <!-- スマホ用ドロワーメニュー（こちらは文字表示） -->
-  <nav class="header__drawer" id="drawer">
-    <ul class="header__drawer-list">
+  <nav class="hidden fixed top-[3.75rem] left-0 w-full bg-base shadow-[0_4px_12px_rgba(0,0,0,0.15)] z-[99]" id="drawer">
+    <ul class="list-none m-0 p-0">
       {navItems.map((item) => (
         <li>
-          <a href={item.href} class="header__drawer-link">
-            <i class={item.iconSet}>{item.icon}</i>
+          <a
+            href={item.href}
+            class="flex items-center gap-3 px-5 py-4 text-base text-brown no-underline border-b border-brown/15 transition-colors duration-200 hover:bg-brown/5 hover:text-green"
+          >
+            <i class={`${item.iconSet} text-[1.25rem]`}>{item.icon}</i>
             {item.label}
           </a>
         </li>
@@ -53,169 +67,21 @@ const currentPath = Astro.url.pathname;
 </header>
 
 <style>
-  /* =========================================
-     元テーマ _header.scss に忠実な実装
-  ========================================= */
-  header {
-    position: sticky;
-    top: 0;
-    z-index: 2;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 3.75rem; /* 60px */
-    padding: 0 1.25rem; /* 20px */
-    line-height: 3.75rem; /* 60px */
-    background-color: #f4f3ec;
-    box-shadow: 0 3px 6px #0000001a;
-  }
-
-  /* ロゴ */
-  .header__site-title {
-    margin: 0;
-  }
-
-  .custom-logo-link,
-  .header__navigation,
-  .header-menu,
-  .header-menu > li,
-  .menu-item,
-  .menu-item a {
-    display: block;
-    height: inherit;
-    line-height: inherit;
-  }
-
-  .custom-logo {
-    width: auto;
-    max-height: 3.75rem; /* 60px */
-  }
-
-  /* ナビゲーション（アイコンのみ） */
-  .header-menu {
-    display: flex;
-    width: 100%;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-
-  .menu-item a {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0 1em;
-    margin-left: 1em;
-    color: #59483b;
-    text-decoration: none;
-    transition: color 0.2s;
-  }
-
-  .menu-item a i {
-    font-size: 1.5rem; /* 24px */
-    line-height: inherit;
-  }
-
-  .menu-item a:hover,
-  .current-menu-item a {
-    color: #16a34a;
-  }
-
-  /* ハンバーガーボタン */
-  .header__hamburger {
-    display: none;
-    flex-direction: column;
-    justify-content: center;
-    gap: 5px;
-    width: 1.875rem; /* 30px */
-    height: 1.875rem; /* 30px */
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 0;
-    flex-shrink: 0;
-  }
-
-  .header__hamburger span {
-    display: block;
-    width: 100%;
-    height: 2px;
-    background-color: #59483b;
-    transition: transform 0.3s, opacity 0.3s;
-  }
-
-  .header__hamburger.is-open span:nth-child(1) {
+  /* ハンバーガーボタンのアニメーション（Tailwindだと状態管理が複雑なのでここで定義） */
+  #hamburger-btn.is-open span:nth-child(1) {
     transform: translateY(7px) rotate(45deg);
   }
-
-  .header__hamburger.is-open span:nth-child(2) {
+  #hamburger-btn.is-open span:nth-child(2) {
     opacity: 0;
   }
-
-  .header__hamburger.is-open span:nth-child(3) {
+  #hamburger-btn.is-open span:nth-child(3) {
     transform: translateY(-7px) rotate(-45deg);
   }
-
-  /* ドロワーメニュー */
-  .header__drawer {
-    display: none;
-    position: fixed;
-    top: 3.75rem; /* 60px */
-    left: 0;
-    width: 100%;
-    background-color: #f4f3ec;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    z-index: 99;
-  }
-
-  .header__drawer.is-open {
-    display: block;
-  }
-
-  .header__drawer-list {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-
-  .header__drawer-link {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem; /* 12px */
-    padding: 1rem 1.25rem; /* 16px 20px */
-    font-size: 1rem; /* 16px */
-    color: #59483b;
-    text-decoration: none;
-    border-bottom: 1px solid rgba(89, 72, 59, 0.15);
-    transition: background-color 0.2s;
-    line-height: 1.5;
-  }
-
-  .header__drawer-link i {
-    font-size: 1.25rem; /* 20px */
-  }
-
-  .header__drawer-link:hover {
-    background-color: rgba(89, 72, 59, 0.05);
-    color: #16a34a;
-  }
-
+  /* スマホでロゴ幅を制限 */
   @media screen and (max-width: 767px) {
-    header {
-      top: 0;
-    }
-
-    .custom-logo {
-      width: 11.25rem; /* 180px */
+    header img {
+      width: 11.25rem;
       max-height: none;
-    }
-
-    .header__navigation {
-      display: none;
-    }
-
-    .header__hamburger {
-      display: flex;
     }
   }
 </style>
@@ -226,13 +92,13 @@ const currentPath = Astro.url.pathname;
 
   hamburger?.addEventListener('click', () => {
     hamburger.classList.toggle('is-open');
-    drawer?.classList.toggle('is-open');
+    drawer?.classList.toggle('!block');
   });
 
   drawer?.querySelectorAll('a').forEach((link) => {
     link.addEventListener('click', () => {
       hamburger?.classList.remove('is-open');
-      drawer.classList.remove('is-open');
+      drawer.classList.remove('!block');
     });
   });
 </script>

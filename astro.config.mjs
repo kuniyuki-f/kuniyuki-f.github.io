@@ -7,6 +7,12 @@ import tailwind from '@astrojs/tailwind';
 // 詳細は TODO.md を参照
 
 export default defineConfig({
+  site: 'https://web-studio-swing.com',
   integrations: [tailwind()],
   output: 'static',
+  markdown: {
+    shikiConfig: {
+      theme: 'one-dark-pro',
+    },
+  },
 });

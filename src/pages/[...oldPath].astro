@@ -1,0 +1,48 @@
+---
+// WordPress旧URL → Astro新URL へのリダイレクトページを一括生成する動的ルート
+//
+// 日本語スラッグをそのままファイル名にすると、macOSのUnicode正規化（NFD）で
+// 文字化けする恐れがあるため、getStaticPaths のパラメータ（NFC文字列）で生成する。
+// 旧URL一覧は本番サイトの sitemap.xml（All in One SEO生成）から取得した。
+//
+// ※ /ap-r6sp-diary/ と /review-2021/ は既存の静的ページで対応済み
+
+export function getStaticPaths() {
+  // 旧URLパス（先頭スラッシュなし） → 新URL
+  const redirects = {
+    // ブログ記事（日本語スラッグ）
+    'webサイトを公開しました': '/blog/web-site-open/',
+    'チェックボックスinセレクトボックスなuiの実装方': '/blog/checkbox-selectbox/',
+    // 実績詳細ページ（Astro版は一覧ページに集約）
+    'work': '/works/',
+    'work/テスト活動実績-2': '/works/',
+    'work/スタジオ木曜日様『――ｯ違う』公式ウェブサ': '/works/',
+    'work/株式会社-nomados-様': '/works/',
+    // カテゴリ（WP版は英語スラッグ、Astro版は日本語）
+    'category/diary': '/category/日記/',
+    'category/programming': '/category/プログラミング/',
+    // タグ（Astro版にタグページはないためブログ一覧へ）
+    'tag/jquery': '/blog/',
+  };
+
+  return Object.entries(redirects).map(([oldPath, to]) => ({
+    params: { oldPath },
+    props: { to },
+  }));
+}
+
+const { to } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="refresh" content={`0;url=${to}`} />
+    <link rel="canonical" href={to} />
+    <title>リダイレクト中...</title>
+  </head>
+  <body>
+    <p>ページが移動しました。<a href={to}>こちら</a>をクリックしてください。</p>
+  </body>
+</html>

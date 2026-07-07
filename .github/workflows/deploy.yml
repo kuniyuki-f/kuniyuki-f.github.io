@@ -26,33 +26,32 @@ jobs:
       - name: リポジトリをチェックアウト
         uses: actions/checkout@v4
 
+      - name: pnpm のセットアップ
+        uses: pnpm/action-setup@v4
+        with:
+          version: 11
+
       - name: Node.js のセットアップ
         uses: actions/setup-node@v4
         with:
           node-version: "20"
-          cache: 'npm'
-          cache-dependency-path: astro-site/package-lock.json
+          cache: 'pnpm'
 
       - name: GitHub Pages の設定を取得
-        id: pages
         uses: actions/configure-pages@v4
 
       - name: 依存パッケージのインストール
-        run: npm ci
-        working-directory: astro-site
+        run: pnpm install --frozen-lockfile
 
+      # site URL はカスタムドメイン（web-studio-swing.com, base '/'）を
+      # astro.config.mjs にハードコード済みのため、環境変数での上書きは不要
       - name: Astro ビルド
-        run: npm run build
-        working-directory: astro-site
-        env:
-          # GitHub Pages の base URL を自動で設定
-          SITE: ${{ steps.pages.outputs.origin }}
-          BASE_PATH: ${{ steps.pages.outputs.base_path }}
+        run: pnpm run build
 
       - name: ビルド成果物をアップロード
         uses: actions/upload-pages-artifact@v3
         with:
-          path: astro-site/dist
+          path: dist
 
   deploy:
     name: Deploy

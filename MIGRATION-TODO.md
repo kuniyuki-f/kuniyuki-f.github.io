@@ -48,7 +48,11 @@
 ## 残タスク
 - [ ] フォームバックエンド実装（Formspree / Googleフォーム / 自前サーバー）— デプロイ後に決定
   - それまで contact ページは「リニューアル作業中」の案内表示に差し替え済み（フォームのマークアップは git 履歴から復元可能）
-- [ ] GitHub Pagesへのデプロイ — ユーザーのGO待ち（リモートリポジトリ作成・pushも保留中）
+- [x] GitHub Pagesへのデプロイ — 2026-07-08 完了
+  - リポジトリ `kuniyuki-f/kuniyuki-f.github.io`（旧 portfolio-astro はアーカイブ済み）
+  - Actionsデプロイ（build_type=workflow）で https://kuniyuki-f.github.io/ に公開、カスタムドメイン web-studio-swing.com 設定済み
+- [ ] DNS切り替え（さくらインターネットのコントロールパネルで手動）— 完了後に Pages の HTTPS 強制を有効化
+- [ ] WordPress撤収 — DNS切り替え後、様子見期間を置いてからホスティング解約
 - [ ] 目視比較の最終確認（レスポンシブ含む）— ユーザー自身の目視確認を推奨
   - Playwright E2E（`pnpm test:e2e`）で機械検証済み: 全実ページ×3幅(375/768/1280px)の描画・横スクロール有無・コンソールエラー・画像読み込み失敗、内部リンク切れ、モバイルのハンバーガー開閉、404表示。フルページスクショは `e2e/screenshots/` に出力（gitignore）
   - 残る人間の確認: デザインの見た目の妥当性（余白・配色・崩れ）はスクショ目視で

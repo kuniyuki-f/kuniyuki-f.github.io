@@ -11,106 +11,19 @@ import Layout from '../../layouts/Layout.astro';
       <h2 class="section-title">Contact</h2>
     </div>
 
-    <!-- 説明テキスト -->
-    <p class="max-w-[20.9375rem] py-[2.0625rem] mx-auto text-left text-[0.9375rem] leading-[1.8]">
-      お仕事のご依頼、ご相談など、下記フォームにて承ります。TwitterのDMも随時受付けております。どうぞお気軽にお問い合わせ下さい。<br />
-      ※ お問い合わせ受付後、通常3日以内にご連絡いたします。
-    </p>
-
     <!-- アイコン -->
-    <div class="text-center">
+    <div class="pt-[2.0625rem] text-center">
       <span class="material-icons-outlined block text-[5rem] text-[#333] mx-auto">mail</span>
     </div>
 
-    <!-- フォーム -->
-    <div class="flex justify-center px-5 mx-auto">
-      <form action="#" method="post" novalidate class="w-full max-w-[31.25rem]">
-        <!-- 貴社名 -->
-        <p class="mt-5">
-          <span class="flex items-center justify-between max-w-[12.5rem] mt-[1.375rem] text-[0.9375rem]">
-            <label for="company">貴社名</label>
-            <span class="px-[0.5em] py-[0.25em] text-[0.75em] text-base bg-[#333] rounded-[5px]">任意</span>
-          </span>
-          <input type="text" id="company" name="company" placeholder="株式会社○○"
-            class="w-full p-2 mt-2 border border-[#333] bg-white text-[0.9375rem] font-[inherit] focus:outline-none focus:border-green"
-          />
-        </p>
-
-        <!-- お名前 -->
-        <p class="mt-5">
-          <span class="flex items-center justify-between max-w-[12.5rem] mt-[1.375rem] text-[0.9375rem]">
-            <label for="name">お名前</label>
-            <span class="px-[0.5em] py-[0.25em] text-[0.75em] text-base bg-brown rounded-[5px]">必須</span>
-          </span>
-          <input type="text" id="name" name="name" placeholder="山田 太郎" required
-            class="w-full p-2 mt-2 border border-[#333] bg-white text-[0.9375rem] font-[inherit] focus:outline-none focus:border-green"
-          />
-        </p>
-
-        <!-- メールアドレス -->
-        <p class="mt-5">
-          <span class="flex items-center justify-between max-w-[12.5rem] mt-[1.375rem] text-[0.9375rem]">
-            <label for="email">メールアドレス</label>
-            <span class="px-[0.5em] py-[0.25em] text-[0.75em] text-base bg-brown rounded-[5px]">必須</span>
-          </span>
-          <input type="email" id="email" name="email" placeholder="example@mail.com" required
-            class="w-full p-2 mt-2 border border-[#333] bg-white text-[0.9375rem] font-[inherit] focus:outline-none focus:border-green"
-          />
-        </p>
-
-        <!-- 電話番号 -->
-        <p class="mt-5">
-          <span class="flex items-center justify-between max-w-[12.5rem] mt-[1.375rem] text-[0.9375rem]">
-            <label for="tel">電話番号</label>
-            <span class="px-[0.5em] py-[0.25em] text-[0.75em] text-base bg-[#333] rounded-[5px]">任意</span>
-          </span>
-          <input type="tel" id="tel" name="tel" placeholder="090-1234-5678"
-            class="w-full p-2 mt-2 border border-[#333] bg-white text-[0.9375rem] font-[inherit] focus:outline-none focus:border-green"
-          />
-        </p>
-
-        <!-- お問い合わせ内容 -->
-        <p class="mt-5">
-          <span class="flex items-center justify-between max-w-[12.5rem] mt-[1.375rem] text-[0.9375rem]">
-            <label for="message">お問い合わせ内容</label>
-            <span class="px-[0.5em] py-[0.25em] text-[0.75em] text-base bg-brown rounded-[5px]">必須</span>
-          </span>
-          <textarea id="message" name="message" rows="8" placeholder="お問い合わせ内容をご記入ください。" required
-            class="w-full p-2 mt-2 resize-y border border-[#333] bg-white text-[0.9375rem] font-[inherit] focus:outline-none focus:border-green"
-          ></textarea>
-        </p>
-
-        <!-- プライバシーポリシー同意 -->
-        <p class="mt-5 text-[0.75rem]">
-          <label class="flex items-center gap-4 cursor-pointer">
-            <input
-              type="checkbox"
-              id="privacy"
-              name="privacy"
-              required
-              class="w-6 h-6 m-0 cursor-pointer accent-green flex-shrink-0"
-            />
-            <a href="/privacy/" class="font-bold text-green underline" target="_blank">プライバシーポリシー</a>
-            に同意する
-          </label>
-        </p>
-
-        <!-- 送信ボタン -->
-        <p class="mt-5">
-          <button
-            type="submit"
-            class="contact__submit block w-full max-w-[7.5rem] px-4 py-4 mx-auto mt-[1.375rem] text-base text-[0.9375rem] font-bold font-[inherit] text-center bg-brown border-none rounded-[3.4375rem] cursor-pointer transition-colors duration-300 disabled"
-            id="submit-btn"
-          >
-            送信
-          </button>
-        </p>
-
-        <p class="text-[0.8125rem] text-[#888] leading-[1.7] mt-5">
-          ※ このフォームはデモ表示です。実際の送信機能は準備中です。<br />
-          お急ぎの場合は <a href="https://twitter.com/swing_web" target="_blank" rel="noopener noreferrer" class="text-green underline">Twitter DM（@swing_web）</a> からご連絡ください。
-        </p>
-      </form>
+    <!-- フォーム休止のお知らせ（バックエンド実装まで。フォームのマークアップは git 履歴から復元可能） -->
+    <div class="max-w-[31.25rem] mx-auto my-[2.0625rem] px-6 py-8 bg-white border border-brown/30 rounded-[5px] text-center">
+      <p class="m-0 text-[1rem] leading-[1.8] text-[#333]">
+        お問い合わせフォームは現在リニューアル作業中のため、一時的にご利用いただけません。
+      </p>
+      <p class="mt-4 mb-0 text-[0.9375rem] leading-[1.8] text-[#555]">
+        <a href="https://twitter.com/swing_web" target="_blank" rel="noopener noreferrer" class="text-green underline">Twitter DM（@swing_web）</a> は随時受付けております。
+      </p>
     </div>
 
     <!-- パンくずリスト -->
@@ -123,28 +36,3 @@ import Layout from '../../layouts/Layout.astro';
   </main>
 
 </Layout>
-
-<script>
-  const privacyCheckbox = document.getElementById('privacy') as HTMLInputElement;
-  const submitBtn = document.getElementById('submit-btn') as HTMLButtonElement;
-
-  privacyCheckbox?.addEventListener('change', () => {
-    if (privacyCheckbox.checked) {
-      submitBtn.classList.remove('disabled');
-    } else {
-      submitBtn.classList.add('disabled');
-    }
-  });
-</script>
-
-<style>
-  /* 送信ボタンの無効状態（Tailwindでは動的クラス管理が難しいため） */
-  .contact__submit.disabled {
-    pointer-events: none;
-    background-color: #b8a89e;
-  }
-
-  .contact__submit:not(.disabled):hover {
-    background-color: #6b5749;
-  }
-</style>

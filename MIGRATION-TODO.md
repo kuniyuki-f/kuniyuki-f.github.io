@@ -51,8 +51,10 @@
 - [x] GitHub Pagesへのデプロイ — 2026-07-08 完了
   - リポジトリ `kuniyuki-f/kuniyuki-f.github.io`（旧 portfolio-astro はアーカイブ済み）
   - Actionsデプロイ（build_type=workflow）で https://kuniyuki-f.github.io/ に公開、カスタムドメイン web-studio-swing.com 設定済み
-- [ ] DNS切り替え（さくらインターネットのコントロールパネルで手動）— 完了後に Pages の HTTPS 強制を有効化
-- [ ] WordPress撤収 — DNS切り替え後、様子見期間を置いてからホスティング解約
+- [x] DNS切り替え — 2026-07-08 完了（apex Aレコード → GitHub Pagesの4IP。旧URL9件のリダイレクトも本番で実地確認済み）
+- [x] HTTPS — 証明書発行済み+HTTPS強制有効化済み。※発行が止まった場合はカスタムドメインを外して入れ直すと再トリガーされる
+- [x] 公開後に発覚した表示問題の修正 — ブログサムネ/FV背景を旧WP版のオフィス写真に復元、フッターロゴ中央寄せ(Tailwind preflightのimg block化が原因)、og:image絶対URL化
+- [ ] WordPress撤収 — 数日様子を見てからホスティング解約。**注意: MXレコードが同サーバー向き（ドメインメールは未使用と確認済み）**
 - [ ] 目視比較の最終確認（レスポンシブ含む）— ユーザー自身の目視確認を推奨
   - Playwright E2E（`pnpm test:e2e`）で機械検証済み: 全実ページ×3幅(375/768/1280px)の描画・横スクロール有無・コンソールエラー・画像読み込み失敗、内部リンク切れ、モバイルのハンバーガー開閉、404表示。フルページスクショは `e2e/screenshots/` に出力（gitignore）
   - 残る人間の確認: デザインの見た目の妥当性（余白・配色・崩れ）はスクショ目視で

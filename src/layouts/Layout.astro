@@ -12,8 +12,9 @@ interface Props {
 
 const { title, description = 'WEB工房 Swing - くにゆきのポートフォリオサイト', image } = Astro.props;
 const pageTitle = `${title} - WEB工房 Swing`;
-const ogImage = image || '/images/blog-default.jpg';
 const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://web-studio-swing.com');
+// og:image は絶対URLが必須（相対パスのままだとSNSシェア時に画像が表示されない）
+const ogImage = new URL(image || '/images/blog-default.jpg', canonicalURL).href;
 ---
 
 <!DOCTYPE html>
